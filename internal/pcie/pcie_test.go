@@ -16,14 +16,14 @@ func TestScanLinuxFromFixtureTree(t *testing.T) {
 	got := ScanLinux(fs)
 	want := []topology.PCIEAffinity{
 		{
-			BDF:        "0000:3b:00.0",
+			BDF:        "0000_3b_00.0",
 			DeviceType: "net",
 			Name:       "eth0",
 			Class:      "0x020000",
 			NUMANode:   1,
 		},
 		{
-			BDF:        "0000:5e:00.0",
+			BDF:        "0000_5e_00.0",
 			DeviceType: "nvme",
 			Name:       "nvme0",
 			Class:      "0x010802",
