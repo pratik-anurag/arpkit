@@ -1,0 +1,295 @@
+{
+  "metadata": {
+    "tool_version": "",
+    "hostname": "fixture-host",
+    "os": "Linux",
+    "kernel": "6.8.0",
+    "arch": "x86_64"
+  },
+  "cpu": {
+    "architecture": "x86_64",
+    "vendor": "GenuineIntel",
+    "model_name": "Dual Socket Fixture",
+    "sockets": 2,
+    "numa_nodes": 2,
+    "cores": 4,
+    "threads": 8,
+    "threads_per_core": 2,
+    "smt": true,
+    "online_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "offline_cpus": [],
+    "isolated_cpus": [],
+    "frequency": {
+      "current_mhz": 0,
+      "min_mhz": 0,
+      "max_mhz": 0
+    }
+  },
+  "microarch": {
+    "microarch_name": "unknown",
+    "vendor": "",
+    "family": 0,
+    "model": 0,
+    "stepping": 0,
+    "isa_features": {
+      "avx": false,
+      "avx2": false,
+      "avx512f": false,
+      "aes": false,
+      "bmi1": false,
+      "bmi2": false,
+      "fma": false,
+      "sha": false,
+      "sve": false,
+      "sve2": false,
+      "sha1": false,
+      "sha2": false,
+      "crc32": false
+    },
+    "avx512_likely_disabled": false,
+    "raw_flags": []
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "cpus": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "mem_total_bytes": 12884901888
+    },
+    {
+      "id": 1,
+      "cpus": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "mem_total_bytes": 12884901888
+    }
+  ],
+  "numa_distance": {
+    "node_ids": [],
+    "matrix": []
+  },
+  "sockets": [
+    {
+      "id": 0,
+      "cpus": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "core_ids": [
+        0,
+        1
+      ],
+      "node_ids": [
+        0
+      ]
+    },
+    {
+      "id": 1,
+      "cpus": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "core_ids": [
+        2,
+        3
+      ],
+      "node_ids": [
+        1
+      ]
+    }
+  ],
+  "cores": [
+    {
+      "id": 0,
+      "socket_id": 0,
+      "node_id": 0,
+      "local_id": 0,
+      "thread_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "socket_id": 0,
+      "node_id": 0,
+      "local_id": 1,
+      "thread_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": 2,
+      "socket_id": 1,
+      "node_id": 1,
+      "local_id": 0,
+      "thread_ids": [
+        4,
+        5
+      ]
+    },
+    {
+      "id": 3,
+      "socket_id": 1,
+      "node_id": 1,
+      "local_id": 1,
+      "thread_ids": [
+        6,
+        7
+      ]
+    }
+  ],
+  "threads": [
+    {
+      "id": 0,
+      "socket_id": 0,
+      "core_id": 0,
+      "core_local_id": 0,
+      "node_id": 0,
+      "online": true
+    },
+    {
+      "id": 1,
+      "socket_id": 0,
+      "core_id": 0,
+      "core_local_id": 0,
+      "node_id": 0,
+      "online": true
+    },
+    {
+      "id": 2,
+      "socket_id": 0,
+      "core_id": 1,
+      "core_local_id": 1,
+      "node_id": 0,
+      "online": true
+    },
+    {
+      "id": 3,
+      "socket_id": 0,
+      "core_id": 1,
+      "core_local_id": 1,
+      "node_id": 0,
+      "online": true
+    },
+    {
+      "id": 4,
+      "socket_id": 1,
+      "core_id": 2,
+      "core_local_id": 0,
+      "node_id": 1,
+      "online": true
+    },
+    {
+      "id": 5,
+      "socket_id": 1,
+      "core_id": 2,
+      "core_local_id": 0,
+      "node_id": 1,
+      "online": true
+    },
+    {
+      "id": 6,
+      "socket_id": 1,
+      "core_id": 3,
+      "core_local_id": 1,
+      "node_id": 1,
+      "online": true
+    },
+    {
+      "id": 7,
+      "socket_id": 1,
+      "core_id": 3,
+      "core_local_id": 1,
+      "node_id": 1,
+      "online": true
+    }
+  ],
+  "caches": [],
+  "llc_groups": [],
+  "memory_distribution": {
+    "total_bytes": 25769803776,
+    "nodes": [
+      {
+        "node_id": 0,
+        "total_bytes": 12884901888,
+        "percent": 50
+      },
+      {
+        "node_id": 1,
+        "total_bytes": 12884901888,
+        "percent": 50
+      }
+    ]
+  },
+  "memory_topology": {
+    "known": false,
+    "dimms_populated": 0,
+    "dimms_total": 0,
+    "channels": 0
+  },
+  "isolation": {
+    "isolated": [],
+    "nohz_full": [],
+    "rcu_nocbs": []
+  },
+  "power": {
+    "governor": "",
+    "driver": "",
+    "turbo_boost": ""
+  },
+  "pcie_affinity": [],
+  "posture": {
+    "score": 8.5,
+    "checks": [
+      {
+        "name": "NUMA balance",
+        "status": "pass",
+        "reason": "single NUMA node"
+      },
+      {
+        "name": "Memory symmetry",
+        "status": "pass",
+        "reason": "node spread 0.0%"
+      },
+      {
+        "name": "Isolation",
+        "status": "unknown",
+        "reason": "no kernel isolation parameters"
+      },
+      {
+        "name": "Power governor",
+        "status": "unknown",
+        "reason": "governor unavailable"
+      }
+    ],
+    "smt_note": "SMT on (2 threads/core)"
+  },
+  "flags": {
+    "smt": true,
+    "isolated_cpus": [],
+    "offline_cpus": []
+  },
+  "partial": false
+}

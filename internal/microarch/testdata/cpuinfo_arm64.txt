@@ -1,0 +1,4 @@
+processor   : 0
+CPU implementer : 0x41
+Hardware    : Neoverse N1
+Features    : fp asimd aes sha1 sha2 crc32 sve sve2

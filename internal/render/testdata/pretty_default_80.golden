@@ -1,0 +1,64 @@
+[ Linux | 6.8.0 | amd64 | Intel | unknown ]
+
+Summary
+------------
+CPU:       Dual Socket Fixture
+Topology:  Sockets: 2  NUMA: 1  Cores: 4  Threads: 8  SMT: on
+Freq:      cur=n/a  min=n/a  max=n/a
+uArch:     unknown
+ISA:       none
+
+Topology
+------------
+┌─ NUMA 0 (mem 24 GiB | cpus 0-7) ─────────────────────────────────────────────┐
+│┌─ S0 ───────────────────────────────────────────────────────────────────────┐│
+││C0 [0-1]  C1 [2-3]                                                          ││
+│└────────────────────────────────────────────────────────────────────────────┘│
+│                                                                              │
+│┌─ S1 ───────────────────────────────────────────────────────────────────────┐│
+││C0 [4-5]  C1 [6-7]                                                          ││
+│└────────────────────────────────────────────────────────────────────────────┘│
+└──────────────────────────────────────────────────────────────────────────────┘
+
+NUMA Distance: n/a
+  N/A
+
+Cache
+------------
+L1i:       n/a
+L1d:       n/a
+L2:        n/a
+L3:        n/a
+LLC Groups: none
+
+Memory
+------------
+Total:     24 GiB
+NUMA0:     24 GiB (100.0%)
+DIMMs:     unknown
+Channels:  unknown
+
+Power
+------------
+Governor:  n/a
+Driver:    n/a
+Turbo/Boost: n/a
+
+Isolation
+-------------
+isolated:  none
+nohz_full: none
+rcu_nocbs: none
+offline:   none
+
+PCIe NUMA Affinity
+----------------------
+N/A
+
+Architecture Posture
+------------------------
+           pass    NUMA balance: single NUMA node
+           pass    Memory symmetry: single NUMA memory pool
+           unknown Isolation: no kernel isolation parameters
+           unknown Power governor: governor unavailable
+SMT:       SMT on (2 threads/core)

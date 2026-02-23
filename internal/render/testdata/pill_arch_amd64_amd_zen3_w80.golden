@@ -1,0 +1,6 @@
+[ Arch Linux | 6.7.9-arch1-1 | amd64 | AMD | Zen 3 ]
+
+Summary
+------------
+CPU:       Pill CPU
+Topology:  Sockets: 1  NUMA: 1  Cores: 4  Threads: 8  SMT: on

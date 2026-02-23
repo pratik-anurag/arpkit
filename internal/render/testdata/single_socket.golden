@@ -1,0 +1,24 @@
+arpkit vtest
+Host: fixture-host
+OS: Linux  Kernel: 6.8.0
+Arch: x86_64
+
+CPU: Fixture CPU
+Sockets: 1  NUMA: 1  Cores: 2  Threads: 4  SMT: on
+Freq: cur=n/a min=n/a max=n/a
+
+Topology:
+  NUMA0:
+    S0:
+      C0: [0 1]
+      C1: [2 3]
+
+Cache:
+  L1i: 32 KiB per-core
+  L1d: 32 KiB per-core
+  L2: 256 KiB per-core
+  L3: 8.0 MiB shared
+
+Notes:
+  Offline CPUs: none
+  Isolated CPUs: none

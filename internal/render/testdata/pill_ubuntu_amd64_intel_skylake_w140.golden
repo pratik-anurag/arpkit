@@ -1,0 +1,6 @@
+[ Ubuntu 24.04 | 6.8.0-31-generic | amd64 | Intel | Skylake ]
+
+Summary
+------------
+CPU:       Pill CPU
+Topology:  Sockets: 1  NUMA: 1  Cores: 4  Threads: 8  SMT: on

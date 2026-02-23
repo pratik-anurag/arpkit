@@ -1,0 +1,15 @@
+processor   : 0
+vendor_id   : GenuineIntel
+cpu family  : 6
+model       : 106
+model name  : Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+stepping    : 6
+flags       : fpu vme de pse tsc aes avx avx2 avx512f bmi1 bmi2 fma sha_ni
+
+processor   : 1
+vendor_id   : GenuineIntel
+cpu family  : 6
+model       : 106
+model name  : Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+stepping    : 6
+flags       : fpu vme de pse tsc aes avx avx2 avx512f bmi1 bmi2 fma sha_ni

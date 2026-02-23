@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "hostname": "fixture-host",
+    "os": "Linux",
+    "kernel": "6.8.0",
+    "arch": "x86_64"
+  },
+  "cpu": {
+    "architecture": "x86_64",
+    "vendor": "GenuineIntel",
+    "model_name": "Cache Missing Fixture"
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "cpus": [0, 1],
+      "mem_total_bytes": 8589934592
+    }
+  ],
+  "cores": [
+    {"id": 0, "socket_id": 0, "node_id": 0, "local_id": 0}
+  ],
+  "threads": [
+    {"id": 0, "socket_id": 0, "core_id": 0, "core_local_id": 0, "node_id": 0, "online": true},
+    {"id": 1, "socket_id": 0, "core_id": 0, "core_local_id": 0, "node_id": 0, "online": true}
+  ],
+  "caches": []
+}

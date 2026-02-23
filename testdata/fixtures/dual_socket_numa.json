@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "hostname": "fixture-host",
+    "os": "Linux",
+    "kernel": "6.8.0",
+    "arch": "x86_64"
+  },
+  "cpu": {
+    "architecture": "x86_64",
+    "vendor": "GenuineIntel",
+    "model_name": "Dual Socket Fixture"
+  },
+  "nodes": [
+    {
+      "id": 1,
+      "cpus": [7, 6, 5, 4],
+      "mem_total_bytes": 12884901888
+    },
+    {
+      "id": 0,
+      "cpus": [3, 2, 1, 0],
+      "mem_total_bytes": 12884901888
+    }
+  ],
+  "cores": [
+    {"id": 3, "socket_id": 1, "node_id": 1, "local_id": 1},
+    {"id": 0, "socket_id": 0, "node_id": 0, "local_id": 0},
+    {"id": 2, "socket_id": 1, "node_id": 1, "local_id": 0},
+    {"id": 1, "socket_id": 0, "node_id": 0, "local_id": 1}
+  ],
+  "threads": [
+    {"id": 0, "socket_id": 0, "core_id": 0, "core_local_id": 0, "node_id": 0, "online": true},
+    {"id": 1, "socket_id": 0, "core_id": 0, "core_local_id": 0, "node_id": 0, "online": true},
+    {"id": 2, "socket_id": 0, "core_id": 1, "core_local_id": 1, "node_id": 0, "online": true},
+    {"id": 3, "socket_id": 0, "core_id": 1, "core_local_id": 1, "node_id": 0, "online": true},
+    {"id": 4, "socket_id": 1, "core_id": 2, "core_local_id": 0, "node_id": 1, "online": true},
+    {"id": 5, "socket_id": 1, "core_id": 2, "core_local_id": 0, "node_id": 1, "online": true},
+    {"id": 6, "socket_id": 1, "core_id": 3, "core_local_id": 1, "node_id": 1, "online": true},
+    {"id": 7, "socket_id": 1, "core_id": 3, "core_local_id": 1, "node_id": 1, "online": true}
+  ]
+}

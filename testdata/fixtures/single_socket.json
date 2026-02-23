@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "hostname": "fixture-host",
+    "os": "Linux",
+    "kernel": "6.8.0",
+    "arch": "x86_64"
+  },
+  "cpu": {
+    "architecture": "x86_64",
+    "vendor": "GenuineIntel",
+    "model_name": "Fixture CPU"
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "cpus": [3, 2, 1, 0],
+      "mem_total_bytes": 17179869184
+    }
+  ],
+  "cores": [
+    {"id": 0, "socket_id": 0, "node_id": 0, "local_id": 0},
+    {"id": 1, "socket_id": 0, "node_id": 0, "local_id": 1}
+  ],
+  "threads": [
+    {"id": 2, "socket_id": 0, "core_id": 1, "core_local_id": 1, "node_id": 0, "online": true},
+    {"id": 0, "socket_id": 0, "core_id": 0, "core_local_id": 0, "node_id": 0, "online": true},
+    {"id": 3, "socket_id": 0, "core_id": 1, "core_local_id": 1, "node_id": 0, "online": true},
+    {"id": 1, "socket_id": 0, "core_id": 0, "core_local_id": 0, "node_id": 0, "online": true}
+  ],
+  "caches": [
+    {"level": 1, "type": "instruction", "size_bytes": 32768, "shared_cpu_list": [0, 1]},
+    {"level": 1, "type": "data", "size_bytes": 32768, "shared_cpu_list": [0, 1]},
+    {"level": 2, "type": "unified", "size_bytes": 262144, "shared_cpu_list": [0, 1]},
+    {"level": 3, "type": "unified", "size_bytes": 8388608, "shared_cpu_list": [0, 1, 2, 3]}
+  ]
+}

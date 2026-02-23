@@ -1,0 +1,40 @@
+version: 2
+
+project_name: arpkit
+
+builds:
+  - id: arpkit
+    main: ./cmd/arpkit
+    binary: arpkit
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+archives:
+  - id: tarball
+    formats:
+      - tar.gz
+  - id: zip
+    formats:
+      - zip
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  use: git
+
+release:
+  github:
+    owner: pratik-anurag
+    name: arpkit
