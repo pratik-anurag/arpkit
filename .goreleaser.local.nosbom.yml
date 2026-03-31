@@ -12,10 +12,8 @@ builds:
       - -trimpath
     goos:
       - linux
-      - darwin
     goarch:
       - amd64
-      - arm64
     ldflags:
       - -buildid=
       - -s -w
@@ -50,19 +48,6 @@ signs:
       - --output-signature=${signature}
       - --output-certificate=${certificate}
       - --yes
-
-sboms:
-  - id: archives
-    artifacts: archive
-    documents:
-      - "${artifact}.spdx.json"
-    cmd: syft
-    args:
-      - ${artifact}
-      - --output
-      - spdx-json=${document}
-      - --enrich
-      - all
 
 changelog:
   use: git
