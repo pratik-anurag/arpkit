@@ -6,6 +6,7 @@ builds:
   - id: arpkit
     main: ./cmd/arpkit
     binary: arpkit
+    mod_timestamp: "{{ .CommitTimestamp }}"
     env:
       - CGO_ENABLED=0
     flags:
@@ -26,12 +27,78 @@ archives:
     formats:
       - tar.gz
     builds_info:
+      owner: root
+      group: root
       mtime: "{{ .CommitDate }}"
+    files:
+      - src: license*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: LICENSE*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: readme*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: README*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: changelog*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: CHANGELOG*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
   - id: zip
     formats:
       - zip
     builds_info:
+      owner: root
+      group: root
       mtime: "{{ .CommitDate }}"
+    files:
+      - src: license*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: LICENSE*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: readme*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: README*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: changelog*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: CHANGELOG*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
 
 checksum:
   name_template: checksums.txt
