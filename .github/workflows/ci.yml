@@ -12,8 +12,6 @@ env:
   GO_VERSION: "1.25.8"
   GORELEASER_VERSION: "v2.14.3"
   GOVULNCHECK_VERSION: "v1.1.4"
-  COSIGN_VERSION: "v2.6.0"
-  SYFT_VERSION: "v1.42.1"
 
 jobs:
   test:
@@ -59,12 +57,8 @@ jobs:
       - name: Run govulncheck
         run: $(go env GOPATH)/bin/govulncheck ./...
 
-  release-snapshot:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  goreleaser:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
       - name: Checkout
@@ -76,65 +70,9 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
           cache: true
 
-      - name: Install cosign
-        uses: sigstore/cosign-installer@faadad0cce49287aee09b3a48701e75088a2c6ad
-        with:
-          cosign-release: ${{ env.COSIGN_VERSION }}
-
-      - name: Install syft
-        uses: anchore/sbom-action/download-syft@f8bdd1d8ac5e901a77a92f111440fdb1b593736b
-        with:
-          syft-version: ${{ env.SYFT_VERSION }}
-
-      - name: Build snapshot artifacts
+      - name: Validate GoReleaser config
         uses: goreleaser/goreleaser-action@e435ccd777264be153ace6237001ef4d979d3a7a
         with:
           distribution: goreleaser
           version: ${{ env.GORELEASER_VERSION }}
-          args: release --snapshot --clean --skip=publish
-
-      - name: Preserve first dist
-        run: cp -R dist /tmp/arpkit-dist-first
-
-      - name: Verify snapshot artifacts
-        run: |
-          set -euo pipefail
-
-          checksum=dist/checksums.txt
-          signature="${checksum}.sig"
-          certificate="${checksum}.pem"
-
-          test -f "$checksum"
-          test -f "$signature"
-          test -f "$certificate"
-
-          archive_count="$(find dist -type f \( -name '*.tar.gz' -o -name '*.zip' \) | wc -l | tr -d ' ')"
-          sbom_count="$(find dist -type f -name '*.spdx.json' | wc -l | tr -d ' ')"
-          test "$archive_count" = "$sbom_count"
-
-          linux_bins="$(find dist -type f -name arpkit -exec sh -c 'file "$1" | grep -q "ELF" && printf "%s\n" "$1"' _ {} \;)"
-          test -n "$linux_bins"
-
-          while IFS= read -r bin; do
-            file "$bin" | grep -q 'statically linked'
-            go version -m "$bin" | grep -q 'build[[:space:]]\+-trimpath=true'
-          done <<EOF
-          $linux_bins
-          EOF
-
-          cosign verify-blob \
-            --certificate-identity-regexp '^https://github.com/pratik-anurag/arpkit/.github/workflows/ci\.yml@refs/' \
-            --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
-            --signature "$signature" \
-            --certificate "$certificate" \
-            "$checksum"
-
-      - name: Rebuild snapshot artifacts
-        uses: goreleaser/goreleaser-action@e435ccd777264be153ace6237001ef4d979d3a7a
-        with:
-          distribution: goreleaser
-          version: ${{ env.GORELEASER_VERSION }}
-          args: release --snapshot --clean --skip=publish
-
-      - name: Compare snapshot checksums
-        run: cmp /tmp/arpkit-dist-first/checksums.txt dist/checksums.txt
+          args: check

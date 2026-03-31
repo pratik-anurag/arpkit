@@ -287,6 +287,7 @@ make release-snapshot
 ## Release process
 
 - Push a semantic version tag prefixed with `v` (for example `v0.1.0` or `v1.0.0`).
+- CI validates `.goreleaser.yaml` on every push and pull request with `goreleaser check`.
 - Tag pushes matching `v*` trigger `.github/workflows/release.yml`.
 - GitHub Releases are published by GoReleaser with per-OS/ARCH archives, signed `checksums.txt`, checksum certificates, and SPDX SBOMs.
 
@@ -294,7 +295,7 @@ Local validation:
 
 ```bash
 goreleaser check
-goreleaser release --snapshot --clean
+goreleaser release --snapshot --clean --skip=publish
 ```
 
 ## Project layout

@@ -21,7 +21,7 @@ run:
 	CGO_ENABLED=$(CGO_ENABLED) go run -trimpath ./cmd/arpkit
 
 release-snapshot:
-	goreleaser release --snapshot --clean
+	goreleaser release --snapshot --clean --skip=publish
 
 clean:
 	rm -rf bin dist
