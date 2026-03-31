@@ -47,6 +47,8 @@ signs:
     args:
       - sign-blob
       - ${artifact}
+      - --key
+      - ${COSIGN_KEY}
       - --output-signature=${signature}
       - --output-certificate=${certificate}
       - --yes
