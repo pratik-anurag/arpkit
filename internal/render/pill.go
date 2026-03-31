@@ -96,14 +96,14 @@ func normalizeSystemInfo(info SystemInfo) normalizedSystemInfo {
 	}
 
 	return normalizedSystemInfo{
-		OSName:        longOS,
-		OSShort:       shortenOSToken(longOS),
+		OSName:        sanitizeText(longOS),
+		OSShort:       sanitizeText(shortenOSToken(longOS)),
 		OSFamily:      osFamily,
 		Distro:        detectDistro(longOS),
-		Kernel:        valueOrUnknown(kernel),
-		Arch:          normalizeArch(info.Arch),
-		Vendor:        canonicalVendor(info.CPUVendor),
-		MicroarchName: valueOrUnknown(strings.TrimSpace(info.MicroarchName)),
+		Kernel:        sanitizeText(valueOrUnknown(kernel)),
+		Arch:          sanitizeText(normalizeArch(info.Arch)),
+		Vendor:        sanitizeText(canonicalVendor(info.CPUVendor)),
+		MicroarchName: sanitizeText(valueOrUnknown(strings.TrimSpace(info.MicroarchName))),
 	}
 }
 

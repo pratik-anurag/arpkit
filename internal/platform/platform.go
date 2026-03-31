@@ -9,8 +9,9 @@ import (
 var ErrUnsupported = errors.New("unsupported platform")
 
 type Options struct {
-	Debug bool
-	Root  string
+	Debug        bool
+	Root         string
+	MaxFileBytes int64
 }
 
 func Collect(opts Options) (*topology.MachineProfile, error) {

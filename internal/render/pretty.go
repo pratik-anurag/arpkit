@@ -344,7 +344,7 @@ func renderPCIeSection(m *topology.MachineProfile, ansi ansiStyle) []string {
 		if entry.NUMANode >= 0 {
 			numa = fmt.Sprintf("NUMA %d", entry.NUMANode)
 		}
-		lines = append(lines, fmt.Sprintf("%s (%s) -> %s", entry.Name, entry.DeviceType, numa))
+		lines = append(lines, fmt.Sprintf("%s (%s) -> %s", sanitizeText(entry.Name), sanitizeText(entry.DeviceType), numa))
 	}
 	return lines
 }
@@ -352,7 +352,7 @@ func renderPCIeSection(m *topology.MachineProfile, ansi ansiStyle) []string {
 func renderPostureSection(posture topology.Posture, opts Options, ansi ansiStyle) []string {
 	lines := make([]string, 0, len(posture.Checks)+1)
 	for _, check := range posture.Checks {
-		line := fmt.Sprintf("%-7s %s: %s", check.Status, check.Name, check.Reason)
+		line := fmt.Sprintf("%-7s %s: %s", sanitizeText(check.Status), sanitizeText(check.Name), sanitizeText(check.Reason))
 		switch check.Status {
 		case "pass":
 			line = ansi.good(line)
@@ -363,14 +363,14 @@ func renderPostureSection(posture topology.Posture, opts Options, ansi ansiStyle
 		}
 		lines = append(lines, continuation(line, opts.Compact))
 	}
-	lines = append(lines, kv("SMT", posture.SMT, opts.Compact, ansi))
+	lines = append(lines, kv("SMT", sanitizeText(posture.SMT), opts.Compact, ansi))
 	return lines
 }
 
 func renderDebugSection(warnings []string) []string {
 	lines := make([]string, 0, len(warnings))
 	for _, warning := range warnings {
-		lines = append(lines, "- "+warning)
+		lines = append(lines, "- "+sanitizeText(warning))
 	}
 	return lines
 }
@@ -489,7 +489,7 @@ func valueOrNA(v string) string {
 	if strings.TrimSpace(v) == "" {
 		return "n/a"
 	}
-	return v
+	return sanitizeText(v)
 }
 
 func listOrNone(values []int) string {

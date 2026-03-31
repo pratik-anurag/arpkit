@@ -25,6 +25,9 @@ func collectPlatform(opts Options) (*topology.MachineProfile, error) {
 
 func collectLinux(opts Options) (*topology.MachineProfile, error) {
 	fs := parser.NewReader(opts.Root)
+	if opts.MaxFileBytes > 0 {
+		fs.MaxFileBytes = opts.MaxFileBytes
+	}
 	m := &topology.MachineProfile{}
 
 	hostname, _ := os.Hostname()
@@ -130,8 +133,21 @@ func collectLinux(opts Options) (*topology.MachineProfile, error) {
 	if m.Microarch.MicroarchName == "" {
 		m.Microarch.MicroarchName = "unknown"
 	}
+	applyReadIssues(m, fs)
 
 	return m, nil
+}
+
+func applyReadIssues(m *topology.MachineProfile, fs *parser.Reader) {
+	if m == nil || fs == nil {
+		return
+	}
+	for _, issue := range fs.Issues() {
+		m.Warnings = append(m.Warnings, fmt.Sprintf("skipped %s: file exceeds %d bytes", issue.Path, issue.Limit))
+	}
+	if len(m.Warnings) > 0 {
+		m.Partial = true
+	}
 }
 
 func augmentMicroarchFromSysfs(fs *parser.Reader, info *microarch.ProcCPUInfo) {

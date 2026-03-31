@@ -8,6 +8,8 @@ builds:
     binary: arpkit
     env:
       - CGO_ENABLED=0
+    flags:
+      - -trimpath
     goos:
       - linux
       - darwin
@@ -15,21 +17,53 @@ builds:
       - amd64
       - arm64
     ldflags:
+      - -buildid=
       - -s -w
       - -X main.version={{.Version}}
       - -X main.commit={{.Commit}}
-      - -X main.date={{.Date}}
+      - -X main.date={{.CommitDate}}
 
 archives:
   - id: tarball
     formats:
       - tar.gz
+    builds_info:
+      mtime: "{{ .CommitDate }}"
   - id: zip
     formats:
       - zip
+    builds_info:
+      mtime: "{{ .CommitDate }}"
 
 checksum:
   name_template: checksums.txt
+
+signs:
+  - id: checksum
+    artifacts: checksum
+    signature: "${artifact}.sig"
+    certificate: "${artifact}.pem"
+    cmd: cosign
+    args:
+      - sign-blob
+      - ${artifact}
+      - --new-bundle-format=false
+      - --output-signature=${signature}
+      - --output-certificate=${certificate}
+      - --yes
+
+sboms:
+  - id: archives
+    artifacts: archive
+    documents:
+      - "${artifact}.spdx.json"
+    cmd: syft
+    args:
+      - ${artifact}
+      - --output
+      - spdx-json=${document}
+      - --enrich
+      - all
 
 changelog:
   use: git

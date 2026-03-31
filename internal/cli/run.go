@@ -21,6 +21,17 @@ type BuildInfo struct {
 	Date    string
 }
 
+var (
+	platformCollect   = platform.Collect
+	topologyNormalize = topology.Normalize
+	postureCompute    = posture.Compute
+	renderJSON        = render.RenderJSON
+	renderDOT         = render.RenderDOT
+	renderPretty      = render.RenderPretty
+	isTTY             = util.IsTTY
+	detectWidth       = render.DetectWidth
+)
+
 func Run(args []string, stdout io.Writer, stderr io.Writer, build BuildInfo) int {
 	fs := flag.NewFlagSet("arpkit", flag.ContinueOnError)
 	fs.SetOutput(stderr)
@@ -44,6 +55,7 @@ func Run(args []string, stdout io.Writer, stderr io.Writer, build BuildInfo) int
 	showDistance := fs.Bool("distance", false, "Show NUMA distance matrix section")
 	showPCIe := fs.Bool("pcie", false, "Show PCIe NUMA affinity section")
 	showPosture := fs.Bool("posture", false, "Show architecture posture section")
+	redactHostname := fs.Bool("redact-hostname", false, "Redact hostname in structured output")
 
 	fs.Usage = func() {
 		fmt.Fprintln(stderr, "arpkit - Architecture Profiling Kit")
@@ -102,7 +114,7 @@ func Run(args []string, stdout io.Writer, stderr io.Writer, build BuildInfo) int
 		return 1
 	}
 
-	machine, err := platform.Collect(platform.Options{Debug: *debug})
+	machine, err := platformCollect(platform.Options{Debug: *debug})
 	if err != nil {
 		if errors.Is(err, platform.ErrUnsupported) {
 			fmt.Fprintln(stderr, "arpkit: unsupported platform")
@@ -112,17 +124,20 @@ func Run(args []string, stdout io.Writer, stderr io.Writer, build BuildInfo) int
 		return 1
 	}
 	machine.Metadata.ToolVersion = build.Version
-	if err := topology.Normalize(machine); err != nil {
+	if *redactHostname {
+		machine.Metadata.Hostname = ""
+	}
+	if err := topologyNormalize(machine); err != nil {
 		fmt.Fprintf(stderr, "arpkit: normalize profile: %v\n", err)
 		return 1
 	}
-	machine.Posture = posture.Compute(machine)
+	machine.Posture = postureCompute(machine)
 
 	opts := render.Options{
 		ColorMode:  *colorMode,
 		ColorTheme: *colorTheme,
-		IsTTY:      util.IsTTY(os.Stdout),
-		Width:      render.DetectWidth(os.Stdout),
+		IsTTY:      isTTY(os.Stdout),
+		Width:      detectWidth(os.Stdout),
 		Profile:    *profileName,
 		Only:       onlySet,
 		NoDiagram:  *noDiagram,
@@ -142,11 +157,11 @@ func Run(args []string, stdout io.Writer, stderr io.Writer, build BuildInfo) int
 	var output string
 	switch *format {
 	case "json":
-		output, err = render.RenderJSON(machine)
+		output, err = renderJSON(machine)
 	case "dot":
-		output, err = render.RenderDOT(machine)
+		output, err = renderDOT(machine)
 	default:
-		output, err = render.RenderPretty(machine, opts)
+		output, err = renderPretty(machine, opts)
 	}
 	if err != nil {
 		fmt.Fprintf(stderr, "arpkit: render output: %v\n", err)

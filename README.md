@@ -24,7 +24,7 @@
 
 ## Installation
 
-Go 1.18+ is required.
+Go 1.22+ is required.
 
 ### Go install
 
@@ -38,7 +38,7 @@ Download archives from the GitHub Releases page:
 
 <https://github.com/pratik-anurag/arpkit/releases>
 
-Each release includes `tar.gz`, `zip`, and `checksums.txt` artifacts per supported OS/ARCH target.
+Each release includes `tar.gz`, `zip`, `checksums.txt`, detached checksum signatures (`checksums.txt.sig`), checksum certificates (`checksums.txt.pem`), and SPDX SBOMs per supported OS/ARCH target.
 
 ### Verify checksum
 
@@ -46,16 +46,27 @@ Each release includes `tar.gz`, `zip`, and `checksums.txt` artifacts per support
 sha256sum -c checksums.txt
 ```
 
+### Verify checksum signature
+
+```bash
+cosign verify-blob \
+  --signature checksums.txt.sig \
+  --certificate checksums.txt.pem \
+  --certificate-identity-regexp '^https://github.com/pratik-anurag/arpkit/.github/workflows/release\.yml@refs/tags/v' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  checksums.txt
+```
+
 ## Build from source
 
 ```bash
-go build -o bin/arpkit ./cmd/arpkit
+CGO_ENABLED=0 go build -trimpath -o bin/arpkit ./cmd/arpkit
 ```
 
 Build with explicit version metadata:
 
 ```bash
-go build -ldflags "-X main.version=v0.2.0 -X main.commit=$(git rev-parse --short HEAD) -X main.date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" -o bin/arpkit ./cmd/arpkit
+CGO_ENABLED=0 go build -trimpath -ldflags "-buildid= -X main.version=v0.2.0 -X main.commit=$(git rev-parse --short HEAD) -X main.date=$(git show -s --format=%cI HEAD)" -o bin/arpkit ./cmd/arpkit
 ```
 
 ## Usage
@@ -82,6 +93,7 @@ go build -ldflags "-X main.version=v0.2.0 -X main.commit=$(git rev-parse --short
 - `--distance`
 - `--pcie`
 - `--posture`
+- `--redact-hostname`
 - `--debug`
 - `--version`
 - `--help`
@@ -276,7 +288,7 @@ make release-snapshot
 
 - Push a semantic version tag prefixed with `v` (for example `v0.1.0` or `v1.0.0`).
 - Tag pushes matching `v*` trigger `.github/workflows/release.yml`.
-- GitHub Releases are published by GoReleaser with per-OS/ARCH archives and `checksums.txt`.
+- GitHub Releases are published by GoReleaser with per-OS/ARCH archives, signed `checksums.txt`, checksum certificates, and SPDX SBOMs.
 
 Local validation:
 
